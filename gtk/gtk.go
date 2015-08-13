@@ -1696,15 +1696,6 @@ func (v *Button) GetEventWindow() (*gdk.Window, error) {
 	return w, nil
 }
 
-// OverrideColor is a wrapper around gtk_widget_override_color().
-func (v *Widget) OverrideColor(state StateFlags, color *gdk.RGBA) {
-	var cColor *C.GdkRGBA
-	if color != nil {
-		cColor = (*C.GdkRGBA)(unsafe.Pointer((&color.RGBA)))
-	}
-	C.gtk_widget_override_color(v.native(), C.GtkStateFlags(state), cColor)
-}
-
 /*
  * GtkColorButton
  */
@@ -5206,7 +5197,6 @@ func (v *Label) SetLabel(str string) {
 	C.gtk_label_set_label(v.native(), (*C.gchar)(cstr))
 }
 
-// added by terrak
 /*
  * GtkLayout
  */
@@ -10255,14 +10245,6 @@ func (v *Widget) SetTooltipText(text string) {
 	C.gtk_widget_set_tooltip_text(v.native(), (*C.gchar)(cstr))
 }
 
-// OverrideFont is a wrapper around gtk_widget_override_font().
-func (v *Widget) OverrideFont(description string) {
-	cstr := C.CString(description)
-	defer C.free(unsafe.Pointer(cstr))
-	c := C.pango_font_description_from_string(cstr)
-	C.gtk_widget_override_font(v.native(), c)
-}
-
 // GetHAlign is a wrapper around gtk_widget_get_halign().
 func (v *Widget) GetHAlign() Align {
 	c := C.gtk_widget_get_halign(v.native())
@@ -10895,7 +10877,9 @@ func (v *Window) SetFocusVisible(setting bool) {
 
 // TODO gtk_window_get_application().
 
-var cast_3_10_func func(string, *glib.Object) glib.IObject
+var cast_3_10_func = func(string, *glib.Object) glib.IObject { return nil }
+
+var cast_3_12_max_func = func(string, *glib.Object) glib.IObject { return nil }
 
 // cast takes a native GObject and casts it to the appropriate Go struct.
 func cast(c *C.GObject) (glib.IObject, error) {
@@ -11081,13 +11065,16 @@ func cast(c *C.GObject) (glib.IObject, error) {
 	case "GtkWindow":
 		g = wrapWindow(obj)
 	default:
-		switch {
-		case cast_3_10_func != nil:
-			g = cast_3_10_func(className, obj)
-			if g != nil {
-				return g, nil
-			}
+		g = cast_3_10_func(className, obj)
+		if g != nil {
+			return g, nil
 		}
+
+		g = cast_3_12_max_func(className, obj)
+		if g != nil {
+			return g, nil
+		}
+
 		return nil, errors.New("unrecognized class name '" + className + "'")
 	}
 	return g, nil

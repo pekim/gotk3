@@ -16,44 +16,26 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-static GtkHeaderBar *
-toGtkHeaderBar(void *p)
+static GtkAlignment *
+toGtkAlignment(void *p)
 {
-	return (GTK_HEADER_BAR(p));
+	return (GTK_ALIGNMENT(p));
 }
 
-static GtkListBox *
-toGtkListBox(void *p)
+static GtkArrow *
+toGtkArrow(void *p)
 {
-	return (GTK_LIST_BOX(p));
+	return (GTK_ARROW(p));
 }
 
-static GtkListBoxRow *
-toGtkListBoxRow(void *p)
+static GtkMisc *
+toGtkMisc(void *p)
 {
-	return (GTK_LIST_BOX_ROW(p));
+	return (GTK_MISC(p));
 }
 
-static GtkRevealer *
-toGtkRevealer(void *p)
+static GtkStatusIcon *
+toGtkStatusIcon(void *p)
 {
-	return (GTK_REVEALER(p));
-}
-
-static GtkSearchBar *
-toGtkSearchBar(void *p)
-{
-	return (GTK_SEARCH_BAR(p));
-}
-
-static GtkStack *
-toGtkStack(void *p)
-{
-	return (GTK_STACK(p));
-}
-
-static GtkStackSwitcher *
-toGtkStackSwitcher(void *p)
-{
-	return (GTK_STACK_SWITCHER(p));
+	return (GTK_STATUS_ICON(p));
 }

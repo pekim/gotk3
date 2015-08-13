@@ -10,14 +10,21 @@ Changes for next Version
     - gdk: PixbufLoader wrapper
     - gtk: new functions for Adjustment: GetPageSize, SetPageSize, Configure
     - gtk: new functions for Range: SetIncrements, SetRange
-    - gtk: new wrappers: IRecentChooser, RecentChooser, RecentChooserMenu, 
-    - gtk: RecentFilter, RecentManager, IScrollable, Scrollable, IViewport, Viewport, Allocation
+    - gtk: new wrappers: ComboBoxText,
+    - gtk: IRecentChooser, RecentChooser, RecentChooserMenu,
+    - gtk: RecentFilter, RecentManager,
+    - gtk: IScrollable, Scrollable, IViewport, Viewport, Allocation.
     - gtk: new function for ScrolledWindow: SetHAdjustment
     - gtk: new function for SpinButton: SetIncrements
     - gtk: new functions for Widget: GetAllocation, SetAllocation, SizeAllocate
     - gtk: new function RecentChooser
     - gtk: added Widget.GetStyleContext, new wrappers for GtkCssProvider
   - API Break Warning: no longer support for gtk 3.16 deprecated mark functions/elements
+    - Added the build flag gtk_no_deprecated: you can use it to add strict compatibility
+      The deprecated part will only be removed on demand to help the transition.
+    - This build flag will soon be removed and its behaviour reversed, replaced
+      by gtk_3_14_deprecated and gtk_3_16_deprecated, used as deprecate enablers.
+      This will help with future GTK evolutions.
 
 Changes in 0.3.0 (Wed Jun 10 2015)
   - API Break Warning: function signatures changed

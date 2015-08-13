@@ -201,7 +201,6 @@ const (
 	SELECTION_TYPE_STRING   Atom = 31
 )
 
-// added by terrak
 // EventMask is a representation of GDK's GdkEventMask.
 type EventMask int
 
@@ -237,7 +236,6 @@ func marshalEventMask(p uintptr) (interface{}, error) {
 	return EventMask(c), nil
 }
 
-// added by lazyshot
 // ScrollDirection is a representation of GDK's GdkScrollDirection
 
 type ScrollDirection int
@@ -587,12 +585,6 @@ func (v *Display) SupportsShapes() bool {
 // SupportsInputShapes() is a wrapper around gdk_display_supports_input_shapes().
 func (v *Display) SupportsInputShapes() bool {
 	c := C.gdk_display_supports_input_shapes(v.native())
-	return gobool(c)
-}
-
-// SupportsComposite() is a wrapper around gdk_display_supports_composite().
-func (v *Display) SupportsComposite() bool {
-	c := C.gdk_display_supports_composite(v.native())
 	return gobool(c)
 }
 
